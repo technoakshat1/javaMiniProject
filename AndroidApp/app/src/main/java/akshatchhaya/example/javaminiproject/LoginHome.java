@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.google.android.material.navigation.NavigationView;
 
 import akshatchhaya.example.javaminiproject.api.LoginAPI;
 import akshatchhaya.example.javaminiproject.api.OnResponseListener;

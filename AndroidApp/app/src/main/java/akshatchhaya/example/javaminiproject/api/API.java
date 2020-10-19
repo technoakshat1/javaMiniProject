@@ -23,7 +23,7 @@ class API {
             this.mRequestController=VolleyRequestController.getInstance(caller);
             this.mRequestQueue=this.mRequestController.getRequestQueue();
         }else{
-            throw new NullPointerException("caller can't be null");
+            throw new NullPointerException("Caller can't be null in API Constructor call");
         }
 
     }

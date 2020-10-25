@@ -18,4 +18,6 @@
     <string name="signup_title">Hello welcome to cake boutique please enter a username and password to proceed further!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="all_flavours">All Flavours</string>
+    <string name="reset_password">Reset Password</string>
 </resources>

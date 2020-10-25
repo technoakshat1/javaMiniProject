@@ -7,7 +7,7 @@ import com.android.volley.RequestQueue;
 
 class API {
      String authToken;
-     final String url="http://192.168.43.157:3000";
+     final String url="http://192.168.43.64:3000";
      final Activity mCaller;
      final OnResponseListener mListener;
      final VolleyRequestController mRequestController;

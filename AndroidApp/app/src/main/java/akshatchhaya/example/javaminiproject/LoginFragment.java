@@ -37,7 +37,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view=inflater.inflate(R.layout.fragment_login, container, false);
-        mLoginBtn=view.findViewById(R.id.btn_login);
+        mLoginBtn=view.findViewById(R.id.button_reset_password);
         mUsername=view.findViewById(R.id.username);
         mPassword=view.findViewById(R.id.password);
         mProgressBar=view.findViewById(R.id.progressBar);

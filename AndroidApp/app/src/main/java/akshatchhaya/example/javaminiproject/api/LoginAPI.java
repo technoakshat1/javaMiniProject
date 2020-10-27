@@ -106,6 +106,73 @@ public class LoginAPI extends API {
         }
     }
 
+    public void confirmPassword(final String password){
+        String passwordUrl=url+"/login/confirmPassword";
+        getToken();
+        StringRequest cnfPassRequest=new StringRequest(Request.Method.POST, passwordUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                 if(response!=null){
+                     mListener.onSuccess();
+                 }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "onErrorResponse: error"+error );
+                mListener.onFailure(403);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers=new HashMap<>();
+                headers.put("authorization","Bearer "+authToken);
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                params.put("password",password);
+                return params;
+            }
+        };
+
+        mRequestQueue.add(cnfPassRequest);
+    }
+
+    public void resetPassword(final String newPassword){
+        String passwordUrl=url+"/login/changePassword";
+        getToken();
+        StringRequest resetPassword=new StringRequest(Request.Method.POST, passwordUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+               mListener.onSuccess();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "onErrorResponse: error"+error );
+                mListener.onFailure(403);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers=new HashMap<>();
+                headers.put("authorization","Bearer "+authToken);
+                return headers;
+            }
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                params.put("newPassword",newPassword);
+                return params;
+            }
+        };
+
+        mRequestQueue.add(resetPassword);
+    }
+
 
 
 }

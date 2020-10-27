@@ -62,10 +62,12 @@
             android:ems="10"
             android:hint="@string/new_password"
             android:inputType="textPassword"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/confirm_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.517"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
 
         <EditText
             android:id="@+id/confirm_password"
@@ -75,10 +77,12 @@
             android:ems="10"
             android:hint="confirm_password"
             android:inputType="textPassword"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/button_reset_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.517"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/button_reset_password"
@@ -92,6 +96,26 @@
             android:textColor="#ffffff"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <Button
+            android:id="@+id/button_reset_password_1"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="330dp"
+            android:layout_height="49dp"
+            android:layout_marginBottom="136dp"
+            android:background="#9C27B0"
+            android:fontFamily="@font/monserrat_alternatives_regular"
+            android:text="@string/change_password"
+            android:textColor="#ffffff"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
@@ -103,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

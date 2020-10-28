@@ -19,7 +19,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="all_flavours">All Flavours</string>
-    <string name="reset_password">Reset Password</string>
+    <string name="reset_password">Change Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="confirm">Confirm</string>
     <string name="username">Username</string>

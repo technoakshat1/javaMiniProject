@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,45 +30,41 @@ public class SlideshowFragment extends Fragment implements Confirmation_dialogue
     private SlideshowViewModel slideshowViewModel;
     final String TAG="Reset Password";
     public String password_from_dialogue;
+    Button button;
+    Button button1;
+    EditText new_Password1;
+    EditText old_password;
+    EditText new_Password2;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
                 new ViewModelProvider(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final Button button=(Button)root.findViewById(R.id.button_reset_password);
-        final Button button1=(Button)root.findViewById(R.id.button_reset_password_1);
-        final EditText new_Password1=root.findViewById(R.id.new_password);
-        final EditText new_Password2=root.findViewById(R.id.confirm_password);
+        final View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+         button=root.findViewById(R.id.button_reset_password);
+         button1=root.findViewById(R.id.button_reset_password_1);
+         old_password=root.findViewById(R.id.old_password);
+         new_Password1=root.findViewById(R.id.new_password);
+         new_Password2=root.findViewById(R.id.confirm_password);
+         final ProgressBar pb=root.findViewById(R.id.resetPasswordSuccess);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View root){
                 openDialog();
-                LoginAPI api = new LoginAPI(getActivity(), new OnResponseListener() {
-                    @Override
-                    public void onSuccess() {
-                        button.setVisibility(View.INVISIBLE);
-                        button1.setVisibility(View.VISIBLE);
-                        new_Password1.setVisibility(View.VISIBLE);
-                        new_Password1.setVisibility(View.VISIBLE);
-                    }
-                    @Override
-                    public void onFailure(int statusCode) {
-                        openDialog();
-                    }
-                });
-                api.confirmPassword(password_from_dialogue);
             }
         });
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View root){
+            public void onClick(final View v){
+                pb.setVisibility(View.VISIBLE);
                 final String s1=new_Password1.getText().toString();
                 final String s2=new_Password2.getText().toString();
-                if(s1==s2) {
+                if(s1.equals(s2)) {
                     LoginAPI api = new LoginAPI(getActivity(), new OnResponseListener() {
                         @Override
                         public void onSuccess() {
-
+                           pb.setVisibility(View.GONE);
+                           Snackbar.make(root,"Password change successful",Snackbar.LENGTH_LONG).show();
                         }
 
 
@@ -85,10 +82,16 @@ public class SlideshowFragment extends Fragment implements Confirmation_dialogue
     }
 
     public void  openDialog(){
-        Confirmation_dialogue d1=new Confirmation_dialogue();
+        Confirmation_dialogue d1=new Confirmation_dialogue(this);
         d1.show(getChildFragmentManager(),"Password Confirmation");
     }
-    public void applyTexts(String password) {
-        password_from_dialogue=password;
+    public void onPasswordConfirm(String password) {
+       new_Password1.setVisibility(View.VISIBLE);
+       old_password.setText(password);
+       old_password.setFocusable(false);
+       old_password.setClickable(false);
+       new_Password2.setVisibility(View.VISIBLE);
+       button.setVisibility(View.INVISIBLE);
+       button1.setVisibility(View.VISIBLE);
     }
 }

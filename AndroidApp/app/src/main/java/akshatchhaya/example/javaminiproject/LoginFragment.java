@@ -40,7 +40,7 @@ public class LoginFragment extends Fragment {
         mLoginBtn=view.findViewById(R.id.button_reset_password);
         mUsername=view.findViewById(R.id.username);
         mPassword=view.findViewById(R.id.password);
-        mProgressBar=view.findViewById(R.id.progressBar);
+        mProgressBar=view.findViewById(R.id.resetPasswordSuccess);
 
         Button signup=view.findViewById(R.id.btn_signup);
 

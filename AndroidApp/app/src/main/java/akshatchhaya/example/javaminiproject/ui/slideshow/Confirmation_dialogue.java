@@ -29,12 +29,20 @@ public class Confirmation_dialogue extends AppCompatDialogFragment {
 
     final String TAG="Confirm Password";
     private ExampleDialogListener listener;
+    private String mPassword;
+
+    public Confirmation_dialogue(ExampleDialogListener listener){
+        this.listener=listener;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         LayoutInflater inflater=getActivity().getLayoutInflater();
         final View view=inflater.inflate(R.layout.password_dialogue,null);
+        final TextView textView=view.findViewById(R.id.status_password);
+        textView.setVisibility(View.GONE);
 
 
         builder.setView(view).setTitle("Confirm your password to change the password").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -44,25 +52,28 @@ public class Confirmation_dialogue extends AppCompatDialogFragment {
             }
         }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(final DialogInterface dialog, int which) {
                 final EditText password=view.findViewById(R.id.confirm_password_for_changing);
-                listener.applyTexts(password.getText().toString());
+                mPassword=password.getText().toString();
+                LoginAPI api=new LoginAPI(getActivity(), new OnResponseListener() {
+                    @Override
+                    public void onSuccess() {
+                        listener.onPasswordConfirm(mPassword);
+                    }
 
+                    @Override
+                    public void onFailure(int statusCode) {
+                      textView.setVisibility(View.VISIBLE);
+                    }
+                });
+
+               api.confirmPassword(mPassword);
             }
         });
         return  builder.create();
     }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            listener = (ExampleDialogListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() +
-                    "must implement ExampleDialogListener");
-        }
-    }
+
     public interface ExampleDialogListener {
-        void applyTexts(String password);
+        void onPasswordConfirm(String password);
     }
 }

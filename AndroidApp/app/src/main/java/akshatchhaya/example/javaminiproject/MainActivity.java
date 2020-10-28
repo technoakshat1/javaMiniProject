@@ -47,10 +47,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
     }
-    public void  openDialog(){
-        Confirmation_dialogue d1=new Confirmation_dialogue();
-        d1.show(getSupportFragmentManager(),"Password Confirmation");
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

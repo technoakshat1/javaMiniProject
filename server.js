@@ -42,15 +42,8 @@ const hotFlavoursSchema = new mongoose.Schema({
 });
 
 const HotFlavours = new mongoose.model("HotFlavour", hotFlavoursSchema);
-//code to add dummy hot flavours
-// HotFlavours.insertMany(hotFlavours,(err)=>{
-//   console.log("done");
-// });
 
 const Flavours = new mongoose.model("flavour", flavoursSchema);
-// Flavours.insertMany(array, (err) => {
-//   console.log("done");
-// });
 
 //server startup
 app.listen(3000, () => {
@@ -59,13 +52,12 @@ app.listen(3000, () => {
 
 //login route for authentication token
 
-app.get("/login",(req,res)=>{
-  
+app.get("/login", (req, res) => {
   //console.log(req.headers.authorization);
 
-  if(isAuthenticated(req.headers.authorization)){
-    res.json({isAuthenticated:true});
-  }else{
+  if (isAuthenticated(req.headers.authorization)) {
+    res.json({ isAuthenticated: true });
+  } else {
     res.sendStatus(403);
   }
 });
@@ -74,8 +66,6 @@ app.post("/login", (req, res) => {
   const user = new User({
     username: req.body.username,
   });
-   
-  
 
   user.authenticate(req.body.password, (err, userModel, passwordErr) => {
     //console.log(userModel);
@@ -180,37 +170,37 @@ app.get("/flavours", (req, res) => {
 
 //password confirmation route
 
-app.post("/login/confirmPassword",(req,res)=>{
-    let token;
-    let authorization=req.headers.authorization;
+app.post("/login/confirmPassword", (req, res) => {
+  let token;
+  let authorization = req.headers.authorization;
   if (authorization) {
     token = authorization.split(" ")[1];
   } else {
     res.sendStatus(403);
   }
-  
+
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (!err) {
       if (decoded.username) {
-        let user=new User({
-          username:decoded.username,
+        let user = new User({
+          username: decoded.username,
         });
 
-        user.authenticate(req.body.password,(err,userModel,passwordErr)=>{
-           if(!err){
-             if(!passwordErr){
-               res.json({message:true});
-             }else{
-               res.sendStatus(403);
-             }
-           }else{
-             res.sendStatus(403);
-           }
+        user.authenticate(req.body.password, (err, userModel, passwordErr) => {
+          if (!err) {
+            if (!passwordErr) {
+              res.json({ message: true });
+            } else {
+              res.sendStatus(403);
+            }
+          } else {
+            res.sendStatus(403);
+          }
         });
-      }else{
+      } else {
         res.sendStatus(403);
       }
-    }else{
+    } else {
       res.sendStatus(500);
     }
   });

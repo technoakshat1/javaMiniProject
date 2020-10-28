@@ -1,6 +1,4 @@
-
-
-export const hotFlavours = [ 
+const hotFlavours = [ 
   {
     flavor:"Stacked Applesauce Cake",
     image:"https://hips.hearstapps.com/clv.h-cdn.co/assets/17/45/1509999363-stacked-applesauce-cake.jpg?crop=1.0xw:1xh;center,top&resize=768:*",
@@ -116,6 +114,8 @@ export const hotFlavours = [
     ],
   }
   ];
+
+  module.exports=hotFlavours;
   
   
   
